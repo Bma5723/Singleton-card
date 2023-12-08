@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>singleton-card</title>
+  <style>
+  </style>
+</head>
+
+<body>
+
+  <team-roster></team-roster>
+
+  <div class="buttons">
+    <button class="duplicate">Duplicate last card</button>
+    <button class="modifytitle">Change Name</button>
+    <button id="deletelastcard">Delete</button>
+    <button data-toggle-btn>Toggle stats</button>
+  </div>
+
+  <div id="app">
+    <singleton-card top="Mr.Beast">
+      <ul>
+        <li>Big Ten's Freshman of the Year in 2022..</li>
+        <li>Penn State running back</li>
+      </ul>
+    </singleton-card>
+  </div>
+
+  <script type="module">
+    import "/src/singleton-card.js";
+    import "/src/team-roster.js";
+
+    // toggle the 1ST instance of the stats
+    document.querySelector('button[data-toggle-btn]').addEventListener('click', (e) => {
+      const details = document.querySelector('singleton-card').shadowRoot.querySelector('details');
+      if (details.getAttribute('open')) {
+        details.removeAttribute('open');
+      } else {
+        details.setAttribute('open', 'open');
+      }
+    });
+
+    // duplicate the 1st item
+    document.querySelector('.duplicate').addEventListener('click', function (e) {
+      const itemToClone = document.querySelector('singleton-card').cloneNode(true);
+      document.querySelector('#app').appendChild(itemToClone);
+    });
+
+    // modify name of 1st item
+    document.querySelector('.modifytitle').addEventListener('click', function (e) {
+      let name = prompt("Name Singleton....");
+      if (name) {
+        document.querySelector('singleton-card').name = name;
+      }
+    });
+
+    // delete the last item
+    document.querySelector('#deletelastcard').addEventListener('click', function (e) {
+      let wantsTo = confirm("Are you sure?");
+      if (wantsTo) {
+        const app = document.querySelector('#app');
+        if (app.lastElementChild !== document.querySelector('singleton-card')) {
+          app.lastElementChild.remove();
+        } else {
+          alert("YOU CAN NOT DELETE SINGLETON!!!!");
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
