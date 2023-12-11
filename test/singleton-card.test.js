@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { fixture, expect } from '@open-wc/testing';
 
-import '../src/singleton-card.js';
+import '/src/singleton-card.js';
 
 describe('SingletonCard', () => {
   let element;

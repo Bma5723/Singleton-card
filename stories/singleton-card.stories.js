@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import '../src/singleton-card.js';
+import '/src/singleton-card.js';
 
 export default {
   title: 'SingletonCard',
